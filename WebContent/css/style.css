@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+.container{
+	width: 80%;
+	margin: 10px auto;
+	padding: 10px 10px;
+}
+
+table{
+	width: 100%;
+	background-color: #fff;
+
+}
+.search .container{
+	background-color: #cfd;
+}
+.search th{
+	background-color: #aaa;
+	color: #ffe;
+}
+.search td{
+	padding: 0;
+	border: solid 1px #ccc;
+	text-align: center;
+}
+
+.studentdata th{
+	background-color: #3a9;
+	color: #ffe;
+}
+.studentdata td{
+	padding: 20px 0;
+	border: solid 1px #ccc;
+	text-align: center;
+}

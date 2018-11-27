@@ -50,7 +50,7 @@
 				<th>学校名</th>
 				<th></th>
 			</tr>
-			<c:forEach var="student" items="${studentList}">
+			<c:forEach var="student" items="${studentList}" varStatus="status">
 				<tr>
 					<td><c:out value="${student.id}" /></td>
 					<td><c:out value="${student.name}" /></td>
@@ -58,7 +58,7 @@
 					<td><c:out value="${student.birthday}" /></td>
 					<td><c:out value="${student.school}" /></td>
 					<td>
-						<a href="/record/StudentDataServlet?action=edit&id=${student.id}">編集</a>
+						<a href="/record/StudentDataServlet?action=edit&index=${status.index}">編集</a>
 						<a href="/record/StudentDataServlet?action=delete&id=${student.id}">削除</a>
 					</td>
 				</tr>

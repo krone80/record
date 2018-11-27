@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import model.DeleteStudentLogic;
 import model.EditStudentLogic;
 import model.RegisterStudentLogic;
-import model.SearchStudentByIdLogic;
 import model.SearchStudentLogic;
 import model.Student;
 
@@ -34,6 +33,7 @@ public class StudentDataServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
 		String id = request.getParameter("id");
+		String index = request.getParameter("index");
 		//前回の検索条件を取得
 		HttpSession session = request.getSession();
 		Student criteria = (Student)session.getAttribute("criteria");
@@ -41,8 +41,9 @@ public class StudentDataServlet extends HttpServlet {
 			//編集，削除，新規登録の分岐
 			switch (action) {
 			case "edit":
-				SearchStudentByIdLogic ssbiLogic = new SearchStudentByIdLogic();
-				Student student = ssbiLogic.execute(id);
+				List<Student> studentList = (List<Student>)session.getAttribute("studentList");
+//				SearchStudentByIdLogic ssbiLogic = new SearchStudentByIdLogic();
+				Student student = studentList.get(Integer.parseInt(index));
 				request.setAttribute("student", student);
 				path = "/WEB-INF/jsp/editStudentData.jsp";
 				break;
@@ -59,8 +60,8 @@ public class StudentDataServlet extends HttpServlet {
 			//検索を実行，結果をstudentListに格納
 			SearchStudentLogic ssLogic = new SearchStudentLogic();
 			List<Student> studentList = ssLogic.execute(criteria);
-			//studenListをリクエストスコープに保存
-			request.setAttribute("studentList", studentList);
+			//studenListをセッションスコープに保存
+			session.setAttribute("studentList", studentList);
 		}
 		RequestDispatcher dis = request.getRequestDispatcher(path);
 		dis.forward(request, response);
@@ -103,8 +104,8 @@ public class StudentDataServlet extends HttpServlet {
 			//検索を実行，結果をstudentListに格納
 			SearchStudentLogic ssLogic = new SearchStudentLogic();
 			List<Student> studentList = ssLogic.execute(criteria);
-			//studenListをリクエストスコープに保存
-			request.setAttribute("studentList", studentList);
+			//studenListをセッションスコープに保存
+			session.setAttribute("studentList", studentList);
 		}
 		//フォワード
 		RequestDispatcher dis = request.getRequestDispatcher(path);

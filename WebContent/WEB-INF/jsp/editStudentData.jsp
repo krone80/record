@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,11 +17,11 @@
 		</tr>
 		<tr>
 			<th>生徒氏名</th>
-			<td><input type="text" name="name" value="${student.name}"></td>
+			<td><input type="text" name="name" value="<c:out value="${student.name}" />"></td>
 		</tr>
 		<tr>
 			<th>生徒氏名(かな)</th>
-			<td><input type="text" name="kana" value="${student.kana}"></td>
+			<td><input type="text" name="kana" value="<c:out value="${student.kana}" />"></td>
 		</tr>
 		<tr>
 			<th>生年月日</th>

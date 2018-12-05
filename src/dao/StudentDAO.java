@@ -20,43 +20,64 @@ public class StudentDAO {
 		String birthday = student.getBirthday();
 		String school = student.getSchool();
 		List<Student> studentList = new ArrayList<Student>();
-		String whereOrAnd = " WHERE";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root0080");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root");
 			String sql = "SELECT ID,NAME,KANA,BIRTHDAY,SCHOOL FROM STUDENT";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			String whereOrAnd = " WHERE";
+
 			if(id != null && id != "") {
 				sql  += whereOrAnd + " ID=?";
-				pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, id);
 				whereOrAnd =" AND";
 			}
 			if(name != null && name != "") {
 				sql  += whereOrAnd + " NAME LIKE ?";
-				pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, "%" + name + "%");
 				whereOrAnd =" AND";
 			}
 			if(kana != null && kana != "") {
 				sql  += whereOrAnd + " KANA LIKE ?";
-				pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, "%" + kana + "%");
 				whereOrAnd =" AND";
 			}
 			if(birthday != null && birthday != "") {
 				sql  += whereOrAnd + " BIRTHDAY=?";
-				pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, birthday);
 				whereOrAnd =" AND";
 			}
 			if(school != null && school != "") {
 				sql  += whereOrAnd + " SCHOOL=?";
-				pStmt = conn.prepareStatement(sql);
-				pStmt.setString(1, school);
 				whereOrAnd =" AND";
 			}
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt = conn.prepareStatement(sql);
+
+			int i = 1;
+			if(id != null && id != "") {
+				pStmt = conn.prepareStatement(sql);
+				pStmt.setString(i, id);
+				i++;
+			}
+			if(name != null && name != "") {
+				pStmt = conn.prepareStatement(sql);
+				pStmt.setString(i, "%" + name + "%");
+				i++;
+			}
+			if(kana != null && kana != "") {
+				pStmt = conn.prepareStatement(sql);
+				pStmt.setString(i, "%" + kana + "%");
+				i++;
+			}
+			if(birthday != null && birthday != "") {
+				pStmt = conn.prepareStatement(sql);
+				pStmt.setString(i, birthday);
+				i++;
+			}
+			if(school != null && school != "") {
+				pStmt = conn.prepareStatement(sql);
+				pStmt.setString(i, school);
+				i++;
+			}
+
 			ResultSet rs = pStmt.executeQuery();
 			while(rs.next()) {
 				id = rs.getString("ID");
@@ -92,7 +113,7 @@ public class StudentDAO {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root0080");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root");
 			String sql = "SELECT ID,NAME,KANA,BIRTHDAY,SCHOOL FROM STUDENT WHERE ID=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, id);
@@ -130,7 +151,7 @@ public class StudentDAO {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root0080");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root");
 			String sql = "UPDATE STUDENT SET NAME=?,KANA=?,BIRTHDAY=?,SCHOOL=? WHERE ID=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, student.getName());
@@ -167,7 +188,7 @@ public class StudentDAO {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root0080");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root");
 			String sql = "INSERT INTO STUDENT (NAME,KANA,BIRTHDAY,SCHOOL) VALUES (?,?,?,?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, registered.getName());
@@ -203,7 +224,7 @@ public class StudentDAO {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root0080");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/record", "root", "root");
 			String sql = "DELETE FROM STUDENT WHERE ID=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, id);
